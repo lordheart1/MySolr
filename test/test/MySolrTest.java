@@ -38,5 +38,4 @@ public class MySolrTest {
 		
 		System.out.println(row);
 	}
-
 }

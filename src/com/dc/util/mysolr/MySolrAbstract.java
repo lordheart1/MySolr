@@ -49,10 +49,6 @@ public abstract class MySolrAbstract implements MySolr {
 
 	protected SolrServer solrServer;
 
-	protected String solrHost = "http://10.1.1.11:8081/solr/bill";
-
-	protected String solrUrl = "/update?wt=json";
-
 	protected Map<String, Mapper> config;
 
 	public MySolrAbstract() {
@@ -65,26 +61,8 @@ public abstract class MySolrAbstract implements MySolr {
 		this.config = createConfig(configFile);
 	}
 
-	public String getSolrHost() {
-		return solrHost;
-	}
-
-	public void setSolrHost(String solrHost) {
-		this.solrHost = solrHost;
-	}
-
 	public SolrServer getSolrServer() {
-
-		if (this.solrServer != null) {
-
-			return this.solrServer;
-		}
-
-		synchronized (this.solrHost) {
-
-			this.solrServer = new org.apache.solr.client.solrj.impl.HttpSolrServer(this.solrHost);
-		}
-
+		
 		return this.solrServer;
 	}
 
@@ -428,13 +406,4 @@ public abstract class MySolrAbstract implements MySolr {
 
 		solrQuery.set("pt", pt);
 	}
-
-	public String getSolrUrl() {
-		return solrUrl;
-	}
-
-	public void setSolrUrl(String solrUrl) {
-		this.solrUrl = solrUrl;
-	}
-
 }

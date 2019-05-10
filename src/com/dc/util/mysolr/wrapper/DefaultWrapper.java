@@ -22,5 +22,4 @@ public class DefaultWrapper implements Wrapper {
 		
 		return obj;
 	}
-
 }
