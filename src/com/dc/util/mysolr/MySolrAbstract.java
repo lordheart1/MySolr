@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import net.sf.json.JSONObject;
 
 import org.apache.log4j.Logger;
 import org.apache.solr.client.solrj.SolrQuery;
@@ -21,7 +20,7 @@ import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.context.Context;
 
-import com.dc.util.http.HttpUtil;
+
 import com.dc.util.mysolr.bean.SolrResult;
 import com.dc.util.mysolr.config.ConfigFactory;
 import com.dc.util.mysolr.config.ConfigFactoryImpl;
@@ -56,8 +55,6 @@ public abstract class MySolrAbstract implements MySolr {
 	
 	protected String solrUrl = "/update?wt=json";
 	
-	protected HttpUtil httpUtil = new HttpUtil();
-	
 	protected  Map<String, Mapper> config;
 	
 	public MySolrAbstract() {
@@ -91,10 +88,6 @@ public abstract class MySolrAbstract implements MySolr {
 		}
 		
 		return this.solrServer;
-		
-		
-		
-		
 	}
 
 	public void setSolrServer(SolrServer solrServer) {
@@ -371,8 +364,9 @@ public abstract class MySolrAbstract implements MySolr {
 		sr.setCount(total);
 		sr.setList(result);
 		
-		Map<String, Object> map = JSONObject.fromObject(queryResponse
-				.getFieldStatsInfo());
+	
+		
+		Map<String, ? extends Object> map = queryResponse.getFieldStatsInfo();
 
 		List<Map<String, Object>> footer = new ArrayList<Map<String, Object>>();
 
@@ -383,7 +377,7 @@ public abstract class MySolrAbstract implements MySolr {
 		logger.debug("footTemplate:" + footTemplate);
 
 		int i = -1;
-		for (Entry<String, Object> entry : map.entrySet()) {
+		for (Entry<String, ? extends Object> entry : map.entrySet()) {
 
 			Map<String, Object> m = (Map<String, Object>) entry.getValue();
 

@@ -26,16 +26,4 @@ public interface MySolr {
 	public SolrResult find(String queryId,Map<String,Object> params,int page,int size);
 	
 //	public void setSolrServer(SolrServer solrServer);
-	
-	
-	public UpdateResponse addBean(Object obj,int commitWithinMs) throws IOException, SolrServerException;
-	
-	public UpdateResponse addBeans(Collection objs,int commitWithinMs) throws IOException, SolrServerException;
-	
-	public UpdateResponse deleteById(String id,int commitWithinMs) throws SolrServerException, IOException;
-	
-	public UpdateResponse deleteByIds(List<String> ids,int commitWithinMs) throws SolrServerException, IOException;
-	
-	public boolean updateSolr(String id, Map<String, Object> updateValues);
-	
 }
