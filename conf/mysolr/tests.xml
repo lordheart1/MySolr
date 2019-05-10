@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappers>
+	<mapper id="test">
+		<query>
+			<![CDATA[
+				 id:${p_id}
+			]]>
+		</query>
+		
+		<fields>
+			product_name
+		</fields>
+	</mapper>
+</mappers>
