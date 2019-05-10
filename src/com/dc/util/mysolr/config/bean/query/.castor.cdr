@@ -1,0 +1,15 @@
+#Thu Aug 13 15:07:45 CST 2015
+com.dc.util.mysolr.config.bean.query.Facets_Type=com.dc.util.mysolr.config.bean.query.descriptors.Facets_TypeDescriptor
+com.dc.util.mysolr.config.bean.query.FacetField=com.dc.util.mysolr.config.bean.query.descriptors.FacetFieldDescriptor
+com.dc.util.mysolr.config.bean.query.Mapper=com.dc.util.mysolr.config.bean.query.descriptors.MapperDescriptor
+com.dc.util.mysolr.config.bean.query.Sort=com.dc.util.mysolr.config.bean.query.descriptors.SortDescriptor
+com.dc.util.mysolr.config.bean.query.FacetField_Type=com.dc.util.mysolr.config.bean.query.descriptors.FacetField_TypeDescriptor
+com.dc.util.mysolr.config.bean.query.Mappers=com.dc.util.mysolr.config.bean.query.descriptors.MappersDescriptor
+com.dc.util.mysolr.config.bean.query.Mapper_Type=com.dc.util.mysolr.config.bean.query.descriptors.Mapper_TypeDescriptor
+com.dc.util.mysolr.config.bean.query.Facets=com.dc.util.mysolr.config.bean.query.descriptors.FacetsDescriptor
+com.dc.util.mysolr.config.bean.query.Fusions_Type=com.dc.util.mysolr.config.bean.query.descriptors.Fusions_TypeDescriptor
+com.dc.util.mysolr.config.bean.query.Fusions=com.dc.util.mysolr.config.bean.query.descriptors.FusionsDescriptor
+com.dc.util.mysolr.config.bean.query.Set=com.dc.util.mysolr.config.bean.query.descriptors.SetDescriptor
+com.dc.util.mysolr.config.bean.query.Mappers_Type=com.dc.util.mysolr.config.bean.query.descriptors.Mappers_TypeDescriptor
+com.dc.util.mysolr.config.bean.query.Set_Type=com.dc.util.mysolr.config.bean.query.descriptors.Set_TypeDescriptor
+com.dc.util.mysolr.config.bean.query.Sort_Type=com.dc.util.mysolr.config.bean.query.descriptors.Sort_TypeDescriptor

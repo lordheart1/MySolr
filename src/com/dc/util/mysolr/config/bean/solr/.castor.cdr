@@ -1,0 +1,5 @@
+#Thu Aug 13 15:07:45 CST 2015
+com.dc.util.mysolr.config.bean.solr.File=com.dc.util.mysolr.config.bean.solr.descriptors.FileDescriptor
+com.dc.util.mysolr.config.bean.solr.SolrConfig_type=com.dc.util.mysolr.config.bean.solr.descriptors.SolrConfig_typeDescriptor
+com.dc.util.mysolr.config.bean.solr.File_Type=com.dc.util.mysolr.config.bean.solr.descriptors.File_TypeDescriptor
+com.dc.util.mysolr.config.bean.solr.SolrConfig=com.dc.util.mysolr.config.bean.solr.descriptors.SolrConfigDescriptor
