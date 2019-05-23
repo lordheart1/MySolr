@@ -6,9 +6,94 @@
 				 id:${p_id}
 			]]>
 		</query>
-		
+
 		<fields>
-			product_name
+			country
 		</fields>
+	</mapper>
+
+	<mapper id="spatial_test">
+		<!-- 必填 -->
+		<query>
+			country:${country}
+		</query>
+		<!-- 非必填 -->
+		<filterQuery>
+			{!geofilt}
+		</filterQuery>
+
+		<!-- 非必填 -->
+		<fields>
+		</fields>
+		<set key="spatial" isTrue="true" />
+
+		<set key="d" value="60" />
+		<set key="sfield" value="scan_location" />
+		
+		<sort>
+			<field>geodist()</field>
+			<type>asc</type>
+		</sort>
+	</mapper>
+	
+	<mapper id="spatial_facet_test">
+		<!-- 必填 -->
+		<query>
+			country:${country}
+		</query>
+		<!-- 非必填 -->
+		<filterQuery>
+			{!geofilt}
+		</filterQuery>
+		
+		<facets facet="true">
+			<facetField facet="area"></facetField>
+		</facets>
+
+		<!-- 非必填 -->
+		<fields>
+		</fields>
+		<set key="spatial" isTrue="true" />
+
+		<set key="d" value="60" />
+		<set key="sfield" value="scan_location" />
+		
+		<sort>
+			<field>geodist()</field>
+			<type>asc</type>
+		</sort>
+	</mapper>
+	
+	<mapper id="spatial_fusion_test">
+		<!-- 必填 -->
+		<query>
+			country:${country}
+		</query>
+		<!-- 非必填 -->
+		<filterQuery>
+			{!geofilt}
+		</filterQuery>
+		
+		<facets fusion="true" facet="true">
+			<facetField facet="area">
+				<fusions>
+					<fusionField>scan_date:max</fusionField>
+					<fusionField>id:max</fusionField>
+				</fusions>
+			</facetField>
+		</facets>
+
+		<!-- 非必填 -->
+		<fields>
+		</fields>
+		<set key="spatial" isTrue="true" />
+
+		<set key="d" value="60" />
+		<set key="sfield" value="scan_location" />
+		
+		<sort>
+			<field>geodist()</field>
+			<type>asc</type>
+		</sort>
 	</mapper>
 </mappers>
