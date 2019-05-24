@@ -31,7 +31,7 @@ import com.dc.util.mysolr.config.bean.query.Set;
 import com.dc.util.mysolr.config.bean.query.Sort;
 import com.dc.util.mysolr.config.bean.query.types.TypeType;
 import com.dc.util.mysolr.wrapper.DefaultWrapper;
-import com.dc.util.mysolr.wrapper.Wrapper;  
+import com.dc.util.mysolr.wrapper.Wrapper;
 
 public abstract class MySolrAbstract implements MySolr {
 
@@ -45,17 +45,12 @@ public abstract class MySolrAbstract implements MySolr {
 
 	private static final String SPATIAL_SET = "spatial";
 
-//	protected static Map<String, Object> footTemplate = new HashMap<String, Object>();
-
-//	protected static String f = null;
-
 	protected SolrServer solrServer;
 
 	protected Map<String, Mapper> config;
-	
+
 	private static final String MAX_FUN_NAME = "max";
 	private static final String MIN_FUN_NAME = "min";
-	
 
 	public MySolrAbstract() {
 
@@ -68,7 +63,7 @@ public abstract class MySolrAbstract implements MySolr {
 	}
 
 	public SolrServer getSolrServer() {
-		
+
 		return this.solrServer;
 	}
 
@@ -207,11 +202,11 @@ public abstract class MySolrAbstract implements MySolr {
 				String[] fusionFields = facetFields[0].getFusions().getFusionField();
 				for (int i = 0; i < fusionFields.length; i++) {
 					String[] str = fusionFields[i].split(":");
-				
+
 					if (str.length == 1) {
-		//				footTemplate.put(str[0], "sum");
+						// footTemplate.put(str[0], "sum");
 					} else {
-		//				footTemplate.put(str[0], str[1]);
+						// footTemplate.put(str[0], str[1]);
 						fusionFields[i] = str[0];
 					}
 				}
@@ -225,15 +220,15 @@ public abstract class MySolrAbstract implements MySolr {
 				String str = "";
 				for (FacetField facetField : facetFields) {
 					String facet = facetField.getFacet();
-	//				f = facet;
-	//				footTemplate.put(facet, "group");
+					// f = facet;
+					// footTemplate.put(facet, "group");
 					String[] fusionField = facetField.getFusions().getFusionField();
 					for (int i = 0; i < fusionField.length; i++) {
 						String[] strr = fusionField[i].split(":");
 						if (strr.length == 1) {
-	//						footTemplate.put(strr[0], "sum");
+							// footTemplate.put(strr[0], "sum");
 						} else {
-	//						footTemplate.put(strr[0], strr[1]);
+							// footTemplate.put(strr[0], strr[1]);
 							fusionField[i] = strr[0];
 						}
 						str = str + fusionField[i] + ",";
@@ -330,11 +325,10 @@ public abstract class MySolrAbstract implements MySolr {
 		return result;
 	}
 
-	protected SolrResult getReturn(QueryResponse queryResponse, SolrDocumentList sdl, Wrapper wrapper,
-			Mapper mapper) {
+	protected SolrResult getReturn(QueryResponse queryResponse, SolrDocumentList sdl, Wrapper wrapper, Mapper mapper) {
 
 		String resultType = mapper.getResultType();
-		
+
 		long total = sdl.getNumFound();
 
 		logger.debug("resultType: " + resultType);
@@ -353,52 +347,51 @@ public abstract class MySolrAbstract implements MySolr {
 
 		logger.debug("map:" + map);
 
-		Map<String,Map<String, String>> fusions = new HashMap<String,Map<String, String>>();
+		Map<String, Map<String, String>> fusions = new HashMap<String, Map<String, String>>();
 
-	//	logger.debug("footTemplate:" + footTemplate);
+		// logger.debug("footTemplate:" + footTemplate);
 
 		int i = -1;
-		
+
 		Facets mapperFacets = mapper.getFacets();
-		
-		if(mapperFacets != null) {
-			
+
+		if (mapperFacets != null) {
+
 			FacetField[] facetFields = mapperFacets.getFacetField();
-			
-			if(facetFields != null && facetFields.length != 0) {
-				
-				for(FacetField facetField : facetFields) {
-					
+
+			if (facetFields != null && facetFields.length != 0) {
+
+				for (FacetField facetField : facetFields) {
+
 					String facet = facetField.getFacet();
-					
+
 					Fusions mapperFusions = facetField.getFusions();
-					
-					if(mapperFusions != null) {
-						
+
+					if (mapperFusions != null) {
+
 						String[] fusionFields = mapperFusions.getFusionField();
-						
-						Map<String,String> funsionMap = new HashMap<String,String>();
-						
-						for(String fusionField : fusionFields) {
-							
+
+						Map<String, String> funsionMap = new HashMap<String, String>();
+
+						for (String fusionField : fusionFields) {
+
 							String[] funsionSplit = fusionField.split(":");
-							
+
 							String columnName = funsionSplit[0];
-							String calculation = (funsionSplit.length < 2) ? "sum" :  funsionSplit[1].toLowerCase();
-							
-							FieldStatsInfo info  = (FieldStatsInfo)map.get(columnName);
-							
+							String calculation = (funsionSplit.length < 2) ? "sum" : funsionSplit[1].toLowerCase();
+
+							FieldStatsInfo info = (FieldStatsInfo) map.get(columnName);
+
 							String funsionValue = this.getFieldValue(info, calculation);
-							
+
 							funsionMap.put(fusionField, funsionValue);
 						}
-						
+
 						fusions.put(facet, funsionMap);
 					}
 				}
 			}
 		}
-		
 
 		sr.setFusions(fusions);
 
@@ -425,18 +418,26 @@ public abstract class MySolrAbstract implements MySolr {
 
 		solrQuery.set("pt", pt);
 	}
-	
-	private String getFieldValue(FieldStatsInfo entr , String name) {
-		
+
+	private String getFieldValue(FieldStatsInfo entr, String name) {
+
 		switch (name.toLowerCase()) {
 		case MAX_FUN_NAME:
 			return entr.getMax().toString();
 		case MIN_FUN_NAME:
 			return entr.getMin().toString();
 		default:
-			return null;
-		
+
+			StringBuilder sb = new StringBuilder("field name:");
+			sb.append(entr.getName()).append(" not can't deal Calculation:").append(name);
+
+			String message = sb.toString();
+
+			logger.error(message);
+
+			throw new RuntimeException(message);
+
 		}
-			
+
 	}
 }
