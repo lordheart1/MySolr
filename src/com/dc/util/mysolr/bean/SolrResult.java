@@ -13,7 +13,7 @@ public class SolrResult<T> {
 	
 	private List<FacetField> facets;
 	
-	private List<Map<String, Object>> fusions;
+	private Map<String,Map<String, Object>> fusions;
 	
 	private List<Map<String, Object>> footer;
 
@@ -41,20 +41,20 @@ public class SolrResult<T> {
 		this.facets = facets;
 	}
 
-	public List<Map<String, Object>> getFusions() {
-		return fusions;
-	}
-
-	public void setFusions(List<Map<String, Object>> fusions) {
-		this.fusions = fusions;
-	}
-
 	public List<Map<String, Object>> getFooter() {
 		return footer;
 	}
 
 	public void setFooter(List<Map<String, Object>> footer) {
 		this.footer = footer;
+	}
+
+	public Map<String, Map<String, Object>> getFusions() {
+		return fusions;
+	}
+
+	public void setFusions(Map<String, Map<String, Object>> fusions) {
+		this.fusions = fusions;
 	}
 
 }

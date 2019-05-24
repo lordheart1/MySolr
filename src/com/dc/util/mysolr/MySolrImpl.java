@@ -65,7 +65,7 @@ public class MySolrImpl extends MySolrAbstract {
 
 		Wrapper wrapper = getWapper(mapper);
 
-		SolrResult sr = getReturn(queryResponse,sdl, wrapper, mapper.getResultType());
+		SolrResult sr = getReturn(queryResponse,sdl, wrapper, mapper);
 
 		return sr;
 
@@ -120,7 +120,7 @@ public class MySolrImpl extends MySolrAbstract {
 
 		Wrapper wrapper = getWapper(mapper);
 
-		SolrResult sr = getReturn(queryResponse,sdl, wrapper, mapper.getResultType());
+		SolrResult sr = getReturn(queryResponse,sdl, wrapper, mapper);
 
 		return sr;
 	}
