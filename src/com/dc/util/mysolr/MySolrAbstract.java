@@ -39,7 +39,7 @@ public abstract class MySolrAbstract implements MySolr {
 
 	protected static final VelocityEngine VELOCITY_ENGINE = new VelocityEngine();
 
-	protected static final int SIZE = 2147483630;
+	protected static final int SIZE = 64;
 
 	protected static final String FILE = "mysolr/solrQueryConfig.xml";
 
