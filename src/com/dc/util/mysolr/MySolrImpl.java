@@ -22,15 +22,15 @@ import com.dc.util.mysolr.config.bean.query.Mapper;
 import com.dc.util.mysolr.wrapper.Wrapper;
 
 public class MySolrImpl extends MySolrAbstract {
-	
+
 	private static final Logger logger = Logger.getLogger(MySolrImpl.class);
-	
+
 	public MySolrImpl() {
 		super();
 	}
-	
+
 	public MySolrImpl(String config) {
-		
+
 		super(config);
 	}
 
@@ -57,23 +57,44 @@ public class MySolrImpl extends MySolrAbstract {
 			logger.error(e.getMessage(), e);
 		}
 
-		String resultType = mapper.getResultType();
-		
-		
-		SolrDocumentList sdl = (SolrDocumentList) queryResponse.getResponse()
-				.get("response");
+		// String resultType = mapper.getResultType();
+
+		SolrDocumentList sdl = (SolrDocumentList) queryResponse.getResponse().get("response");
+
+		long total = sdl.getNumFound();
+		long currentSize = (sdl == null) ? 0 : sdl.size();
+
+		if (total <= currentSize) {
+
+			Wrapper wrapper = getWapper(mapper);
+
+			SolrResult sr = getReturn(queryResponse, sdl, wrapper, mapper);
+
+			return sr;
+		}
+
+		int rows = (int) total;
+
+		solrQuery.setRows(rows);
+
+		try {
+			queryResponse = this.getSolrServer().query(solrQuery);
+		} catch (SolrServerException e) {
+			logger.error(e.getMessage(), e);
+		}
+
+		sdl = (SolrDocumentList) queryResponse.getResponse().get("response");
 
 		Wrapper wrapper = getWapper(mapper);
 
-		SolrResult sr = getReturn(queryResponse,sdl, wrapper, mapper);
+		SolrResult sr = getReturn(queryResponse, sdl, wrapper, mapper);
 
 		return sr;
 
 	}
 
 	@Override
-	public SolrResult find(String id, Map<String, Object> model, int page,
-			int size) {
+	public SolrResult find(String id, Map<String, Object> model, int page, int size) {
 		Mapper mapper = this.config.get(id);
 
 		if (mapper == null) {
@@ -90,20 +111,19 @@ public class MySolrImpl extends MySolrAbstract {
 
 			StringBuilder sb = new StringBuilder();
 
-			sb.append("page:").append(page).append(" start:").append(start)
-					.append(" size:").append(size);
+			sb.append("page:").append(page).append(" start:").append(start).append(" size:").append(size);
 
 			logger.debug(sb.toString());
 		}
 
 		solrQuery.setStart(start);
 		solrQuery.setRows(size);
-		
-		if(logger.isDebugEnabled()) {
-			
+
+		if (logger.isDebugEnabled()) {
+
 			StringBuilder sb = new StringBuilder("start=");
 			sb.append(start).append(" size=").append(size);
-			
+
 			logger.debug(sb.toString());
 		}
 
@@ -115,16 +135,13 @@ public class MySolrImpl extends MySolrAbstract {
 			logger.error(e.getMessage(), e);
 		}
 
-		SolrDocumentList sdl = (SolrDocumentList) queryResponse.getResponse()
-				.get("response");
+		SolrDocumentList sdl = (SolrDocumentList) queryResponse.getResponse().get("response");
 
 		Wrapper wrapper = getWapper(mapper);
 
-		SolrResult sr = getReturn(queryResponse,sdl, wrapper, mapper);
+		SolrResult sr = getReturn(queryResponse, sdl, wrapper, mapper);
 
 		return sr;
 	}
-	
-	
-	
+
 }
