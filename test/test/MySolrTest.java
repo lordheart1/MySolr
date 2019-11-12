@@ -48,9 +48,12 @@ public class MySolrTest {
 		
 		SolrResult solrResult = mySolr.find("test", params);
 		
+		
+		
 		Map<String,Object> row = (Map<String,Object>)solrResult.getList().get(0);
 		
 		System.out.println(row);
+		System.out.println(solrResult.getList().size());
 	}
 	
 	@Test
@@ -62,14 +65,14 @@ public class MySolrTest {
 		params.put(MySolr.LAT, this.lat);
 		params.put(MySolr.LNG, this.lng);
 		
-		SolrResult solrResult = mySolr.find("spatial_test", params);
+		SolrResult<Map<String,Object>> solrResult = mySolr.find("spatial_test", params);
 		
 		for(Object row : solrResult.getList()) {
 			
 			System.out.println(row);
 		}
 		
-		
+		System.out.println(solrResult.getList().get(0).get("id"));
 	}
 	
 	@Test
